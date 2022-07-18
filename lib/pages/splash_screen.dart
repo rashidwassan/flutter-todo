@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todo/pages/data_input_screen.dart';
 
 import '../constants/images.dart';
-import 'data_input_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  static const String routeName = '/';
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
@@ -19,8 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void navigateToDataInputPage() {
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => DataInputScreen()));
+      Navigator.pushReplacementNamed(context, DataInputScreen.routeName);
     });
   }
 

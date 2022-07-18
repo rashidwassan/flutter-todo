@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:todo/constants/images.dart';
 import 'package:todo/data/todos.dart';
 import 'package:todo/models/todo.dart';
+import 'package:todo/pages/todos_list_page.dart';
 
 class DataInputScreen extends StatefulWidget {
+  static const String routeName = 'data-input-screen';
   DataInputScreen({Key? key}) : super(key: key);
 
   @override
@@ -28,8 +30,8 @@ class _DataInputScreenState extends State<DataInputScreen> {
   void addToTodos() {
     TodoItem newTask = TodoItem(
       id: Todos.todos.length,
-      isCompleted: false,
       title: _titleFieldController.text,
+      isCompleted: false,
     );
 
     Todos.todos.add(newTask);
@@ -50,8 +52,10 @@ class _DataInputScreenState extends State<DataInputScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
-              icon: const Icon(Icons.check_box),
-              onPressed: () {},
+              icon: const Icon(Icons.check_circle),
+              onPressed: () {
+                Navigator.pushNamed(context, TodoListPage.routeName);
+              },
             ),
           ),
         ],

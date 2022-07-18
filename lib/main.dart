@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todo/pages/data_input_screen.dart';
 import 'package:todo/pages/splash_screen.dart';
+import 'package:todo/pages/todos_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +19,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      initialRoute: SplashScreen.routeName,
+      routes: {
+        SplashScreen.routeName: (context) => const SplashScreen(),
+        DataInputScreen.routeName: (context) => DataInputScreen(),
+        TodoListPage.routeName: (context) => const TodoListPage(),
+      },
     );
   }
 }
