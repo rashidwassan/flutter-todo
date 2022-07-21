@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/components/todos_count_button.dart';
 import 'package:todo/constants/images.dart';
-import 'package:todo/data/todos.dart';
-import 'package:todo/models/todo.dart';
-import 'package:todo/pages/todos_list_page.dart';
+import 'package:todo/providers/todo_list_provider.dart';
+
+import '../models/todo.dart';
 
 class DataInputScreen extends StatefulWidget {
   static const String routeName = 'data-input-screen';
@@ -26,17 +28,6 @@ class _DataInputScreenState extends State<DataInputScreen> {
     _descriptionFieldController.dispose();
   }
 
-  // method to add todoItem in todo list
-  void addToTodos() {
-    TodoItem newTask = TodoItem(
-      id: Todos.todos.length,
-      title: _titleFieldController.text,
-      isCompleted: false,
-    );
-
-    Todos.todos.add(newTask);
-  }
-
   @override
   Widget build(BuildContext context) {
     // adding listeners to listen input changes
@@ -48,15 +39,10 @@ class _DataInputScreenState extends State<DataInputScreen> {
       appBar: AppBar(
         title: const Text('Data Entry Screen'),
         centerTitle: true,
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: const Icon(Icons.check_circle),
-              onPressed: () {
-                Navigator.pushNamed(context, TodoListPage.routeName);
-              },
-            ),
+            padding: EdgeInsets.all(8.0),
+            child: TodosCountButton(),
           ),
         ],
       ),
@@ -95,7 +81,15 @@ class _DataInputScreenState extends State<DataInputScreen> {
           ),
           TextButton(
               onPressed: () {
-                addToTodos();
+                TodoItem newTask = TodoItem(
+                  id: Provider.of<TodoListProvider>(context, listen: false)
+                      .todoList
+                      .length,
+                  title: _titleFieldController.text,
+                  isCompleted: false,
+                );
+                Provider.of<TodoListProvider>(context, listen: false)
+                    .addTodo(newTask: newTask);
               },
               child: const Text('Add'))
         ]),

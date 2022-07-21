@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:todo/data/todos.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/providers/todo_list_provider.dart';
 
 class TodoListPage extends StatelessWidget {
   static const String routeName = 'todos-list-page';
@@ -23,14 +24,18 @@ class TodoListPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Expanded(
-                child: ListView.builder(
-                    itemCount: Todos.todos.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(Todos.todos[index].title),
-                      );
-                    })),
+            Consumer<TodoListProvider>(
+              builder: ((context, todosListProvider, child) => Expanded(
+                    child: ListView.builder(
+                        itemCount: todosListProvider.todoList.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title:
+                                Text(todosListProvider.todoList[index].title),
+                          );
+                        }),
+                  )),
+            ),
           ],
         ),
       ),
