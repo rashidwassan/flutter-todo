@@ -1,12 +1,12 @@
 class TodoItem {
   int id;
   String title;
-  String? description;
+  String description;
   bool isCompleted;
 
   TodoItem(
       {required this.id,
-      this.description,
+      required this.description,
       required this.isCompleted,
       required this.title});
 }
